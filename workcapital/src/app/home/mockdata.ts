@@ -1,7 +1,7 @@
-import { UserOutlined, MobileOutlined, HighlightOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import { DesktopOutlined , MobileOutlined, HighlightOutlined, VideoCameraOutlined } from "@ant-design/icons";
 
 export const mockCategories = [
-  { name: "Desenvolvimento Web", icon: UserOutlined },
+  { name: "Desenvolvimento Web", icon: DesktopOutlined },
   { name: "Desenvolvimento Mobile", icon: MobileOutlined },
   { name: "UI/UX Designer", icon: HighlightOutlined },
   { name: "Editor de Vídeo", icon: VideoCameraOutlined },
