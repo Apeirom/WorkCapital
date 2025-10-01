@@ -5,7 +5,7 @@ export const NavbarContainer = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  height: 12.5%;
+  height: 12.5vh;
   width: 100%;
   padding: 0 2rem;
   background-color: #fff;
