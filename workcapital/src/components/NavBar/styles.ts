@@ -70,12 +70,3 @@ export const NotificationButton = styled.button`
     color: #3978c9;
   }
 `;
-
-// Botão do avatar
-export const AvatarButton = styled.button`
-  cursor: pointer;
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-`;

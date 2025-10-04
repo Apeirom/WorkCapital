@@ -10,7 +10,6 @@ import {
   NavItem,
   RightSection,
   NotificationButton,
-  AvatarButton,
 } from "./styles";
 import { usePathname } from "next/navigation";
 
