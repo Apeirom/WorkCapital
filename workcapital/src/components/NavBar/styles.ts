@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Link from "next/link";
+
 
 // Navbar Container
 export const NavbarContainer = styled.header`
@@ -14,7 +16,9 @@ export const NavbarContainer = styled.header`
 `;
 
 // Logo
-export const Logo = styled.img`
+export const Logo = styled.img.attrs(props => ({
+  as: props.as || 'img'
+}))`
   height: 70%;
   cursor: pointer;
 `;
@@ -26,18 +30,19 @@ export const NavLinks = styled.nav`
 `;
 
 interface NavItemProps {
-  active?: boolean;
+  $active?: boolean;
 }
 
-export const NavItem = styled.a<NavItemProps>`
+export const NavItem = styled(Link)<NavItemProps>`
   font-size: 1rem;
-  color: ${({ active }) => (active ? "#0046A1" : "#949494")};
+  // Use a prop $active para a estilização
+  color: ${({ $active }) => ($active ? "#0046A1" : "#949494")}; 
   font-weight: 500;
   text-decoration: none;
   transition: color 0.3s ease;
   cursor: pointer;
   padding-bottom: 4px;
-  border-bottom: ${({ active }) => (active ? "2px solid #0046A1" : "2px solid transparent")};
+  border-bottom: ${({ $active }) => ($active ? "2px solid #0046A1" : "2px solid transparent")};
 
   &:hover {
     color: #3978c9;

@@ -21,7 +21,7 @@ const LoginPage: React.FC = () => {
 
   const handleLogin = (values: unknown) => {
     console.log("Login realizado:", values);
-    router.push("/home"); // futuramente será substituído pelo hook
+    router.push("/Home"); // futuramente será substituído pelo hook
   };
 
   const handleRegister = () => {
