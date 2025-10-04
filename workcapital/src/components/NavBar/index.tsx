@@ -2,6 +2,7 @@
 import React from "react";
 import { BellOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
+import Link from "next/link";
 import {
   NavbarContainer,
   Logo,
@@ -11,7 +12,7 @@ import {
   NotificationButton,
   AvatarButton,
 } from "./styles";
-import { usePathname } from "next/navigation"; // Para detectar a página atual
+import { usePathname } from "next/navigation";
 
 const Navbar: React.FC = () => {
   const pathname = usePathname(); // pega o caminho atual
@@ -23,19 +24,19 @@ const Navbar: React.FC = () => {
 
       {/* Links de Navegação */}
       <NavLinks>
-        <NavItem href="/home" active={pathname === "/home"}>
+        <NavItem href="/Home" $active={pathname === "/Home"}>
           Home
         </NavItem>
-        <NavItem href="/projects" active={pathname === "/projects"}>
+        <NavItem href="/Projects" $active={pathname === "/Projects"}>
           Meus Projetos
         </NavItem>
-        <NavItem href="/freelancer" active={pathname === "/freelancer"}>
+        <NavItem href="/Freelancer" $active={pathname === "/Freelancer"}>
           Freelancer
         </NavItem>
-        <NavItem href="/invest" active={pathname === "/invest"}>
+        <NavItem href="/Invest" $active={pathname === "/Invest"}>
           Investir
         </NavItem>
-        <NavItem href="/credit" active={pathname === "/credit"}>
+        <NavItem href="/Credit" $active={pathname === "/Credit"}>
           Crédito
         </NavItem>
       </NavLinks>
@@ -45,9 +46,9 @@ const Navbar: React.FC = () => {
         <NotificationButton onClick={() => console.log("Ir para Notificações")}>
           <BellOutlined />
         </NotificationButton>
-        <AvatarButton onClick={() => console.log("Ir para Perfil")}>
+        <Link href="/Profile">
           <Avatar src="/assets/user.png" size="large" />
-        </AvatarButton>
+        </Link>
       </RightSection>
     </NavbarContainer>
   );
