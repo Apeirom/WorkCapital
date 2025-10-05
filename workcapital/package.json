@@ -14,8 +14,10 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "@types/styled-components": "^5.1.34",
     "antd": "^5.27.4",
+    "axios": "^1.12.2",
     "babel-plugin-styled-components": "^2.1.4",
     "next": "15.5.4",
+    "nookies": "^2.5.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "styled-components": "^6.1.19"
