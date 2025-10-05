@@ -5,7 +5,7 @@ import { Contractor, ContractorCreateData } from '../interfaces/User'; // Interf
 import { Project } from '../interfaces/Project'; // Interface Project
 
 export default class ContractorService {
-    private basePath = '/api/contractors/';
+    private basePath = 'contractors/';
 
     // =========================================================
     // 1. OPERAÇÕES CRUD BÁSICAS

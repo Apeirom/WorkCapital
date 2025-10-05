@@ -43,7 +43,7 @@ export default class AuthService {
 
   // ROTA: POST /api/register/
   async register(data: RegisterRequest): Promise<UserProfile> {
-    const response = await api.post('/api/register/', data);
+    const response = await api.post('register/', data);
     return response.data;
   }
 }

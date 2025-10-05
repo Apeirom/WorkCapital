@@ -4,7 +4,7 @@ import api from './api';
 import { Investor, InvestorCreateData } from '../interfaces/User'; // Reutilizando a interface
 
 export default class InvestorService {
-    private basePath = '/api/investors/';
+    private basePath = 'investors/';
 
     /**
      * ROTA: GET /api/investors/

@@ -4,7 +4,7 @@ import api from './api';
 import { CreditTaker, CreditTakerCreateData } from '../interfaces/User'; // Interfaces CreditTaker
 
 export default class CreditTakerService {
-    private basePath = '/api/credit-takers/';
+    private basePath = 'credit-takers/';
 
     /**
      * ROTA: GET /api/credit-takers/

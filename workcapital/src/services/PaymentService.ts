@@ -4,7 +4,7 @@ import api from './api';
 import { Payment, PaymentCreateData } from '../interfaces/Financial'; // Reutilizando a interface
 
 export default class PaymentService {
-    private basePath = '/api/payments/';
+    private basePath = 'payments/';
 
     /**
      * ROTA: GET /api/payments/

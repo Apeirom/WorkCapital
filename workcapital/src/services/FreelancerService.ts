@@ -1,5 +1,6 @@
 // services/FreelancerService.ts
 
+import { AxiosResponse } from 'axios'; // Importa AxiosResponse
 import api from './api';
 import { Freelancer, FreelancerCreateData } from '../interfaces/Marketplace'; // Reutilizando suas interfaces
 
@@ -10,21 +11,22 @@ interface ScoreResponse {
     data: Freelancer; // Retorna o objeto Freelancer atualizado
 }
 
+// O serviço agora é exportado como uma classe estática, sem 'export default class'
 export default class FreelancerService {
-    // Definimos o caminho base da rota para reuso
-    private basePath = '/api/freelancers/';
+    // Definimos o caminho base (URL RESTful do DRF)
+    private static basePath = 'freelancers/';
 
     // =========================================================
-    // 1. OPERAÇÕES CRUD BÁSICAS
+    // 1. OPERAÇÕES CRUD BÁSICAS (Estáticas)
     // =========================================================
 
     /**
      * ROTA: GET /api/freelancers/
      * Retorna a lista de todos os perfis de freelancer.
      */
-    async getAll(): Promise<Freelancer[]> {
-        // Assume que o token JWT já está no header padrão do 'api'
-        const response = await api.get<Freelancer[]>(this.basePath);
+    static async getAll(): Promise<Freelancer[]> {
+        // Rotas DRF RESTful são limpas: /api/freelancers/
+        const response: AxiosResponse<Freelancer[]> = await api.get(this.basePath);
         return response.data;
     }
 
@@ -32,8 +34,8 @@ export default class FreelancerService {
      * ROTA: GET /api/freelancers/{id}/
      * Retorna o perfil detalhado de um freelancer específico.
      */
-    async getById(id: string): Promise<Freelancer> {
-        const response = await api.get<Freelancer>(`${this.basePath}${id}/`);
+    static async getById(id: string): Promise<Freelancer> {
+        const response: AxiosResponse<Freelancer> = await api.get(`${this.basePath}${id}/`);
         return response.data;
     }
 
@@ -41,8 +43,9 @@ export default class FreelancerService {
      * ROTA: POST /api/freelancers/
      * Cria um novo perfil de freelancer.
      */
-    async create(data: FreelancerCreateData): Promise<Freelancer> {
-        const response = await api.post<Freelancer>(this.basePath, data);
+    static async create(data: FreelancerCreateData): Promise<Freelancer> {
+        // Envia o payload como JSON
+        const response: AxiosResponse<Freelancer> = await api.post(this.basePath, data);
         return response.data;
     }
 
@@ -50,8 +53,9 @@ export default class FreelancerService {
      * ROTA: PATCH /api/freelancers/{id}/
      * Atualiza parcialmente um perfil de freelancer.
      */
-    async update(id: string, data: Partial<FreelancerCreateData>): Promise<Freelancer> {
-        const response = await api.patch<Freelancer>(`${this.basePath}${id}/`, data);
+    static async update(id: string, data: Partial<FreelancerCreateData>): Promise<Freelancer> {
+        // DRF usa PATCH para atualização parcial
+        const response: AxiosResponse<Freelancer> = await api.patch(`${this.basePath}${id}/`, data);
         return response.data;
     }
 
@@ -59,7 +63,8 @@ export default class FreelancerService {
      * ROTA: DELETE /api/freelancers/{id}/
      * Deleta um perfil de freelancer.
      */
-    async remove(id: string): Promise<void> {
+    static async remove(id: string): Promise<void> {
+        // DELETE retorna 204 No Content, Promise<void> é apropriado
         await api.delete(`${this.basePath}${id}/`);
     }
 
@@ -69,12 +74,13 @@ export default class FreelancerService {
 
     /**
      * ROTA CUSTOMIZADA: POST /api/freelancers/{id}/calculate_score/
-     * Aciona a lógica de Machine Learning no backend para calcular e salvar o score.
+     * Aciona a lógica de Machine Learning no backend.
      */
-    async calculateScore(freelancerId: string): Promise<ScoreResponse> {
-        // O POST não precisa de body, apenas de acionamento
-        const response = await api.post<ScoreResponse>(
+    static async calculateScore(freelancerId: string): Promise<ScoreResponse> {
+        // O POST é enviado para a rota customizada (@action no Django)
+        const response: AxiosResponse<ScoreResponse> = await api.post(
             `${this.basePath}${freelancerId}/calculate_score/`
+            // Não enviamos Body aqui, a lógica está no backend
         );
         return response.data;
     }

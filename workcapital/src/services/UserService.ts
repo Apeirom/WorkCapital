@@ -1,60 +1,76 @@
 // services/UserService.ts
 
+import { AxiosResponse } from 'axios';
 import api from './api';
-import { ILoginRequest } from '../interfaces/Auth'; // Ajuste o caminho da sua interface de Login
+import { setCookie } from 'nookies'; 
 import { 
     UserProfile, 
     UserRegistrationRequest, 
     UserUpdateData 
-} from '../interfaces/User'; // Reutilizando suas interfaces
+} from '../interfaces/User'; 
 
-// Assumindo que JWTResponse é globalmente disponível ou importado de outro local
+// Assumindo que ILoginRequest e JWTResponse estão disponíveis globalmente
+interface ILoginRequest {
+    email: string;
+    password: string;
+}
+
 interface JWTResponse {
     refresh: string;
     access: string;
+    user: UserProfile;
 }
 
-export class UserService {
-    private basePath = '/api/profiles/';
+// A classe original, agora sem o 'export' e sem a palavra-chave 'static' nos métodos
+class UserServiceClass {
+    private basePath = 'profiles/';
 
     // =========================================================
-    // 1. AUTENTICAÇÃO (Login e Registro)
+    // 1. AUTENTICAÇÃO (Métodos de Instância)
     // =========================================================
 
-    // ROTA: POST /api/token/
+    // ROTA: POST /api/token/ (Login) - MÉTODO DE INSTÂNCIA
     async login({ email, password }: ILoginRequest): Promise<JWTResponse> {
-        // O backend Django usa 'username' (que é o email) e 'password'
-        const response = await api.post<JWTResponse>('/api/token/', {
-            username: email, 
-            password: password,
-        });
+        const response: AxiosResponse<JWTResponse> = await api.post(
+            'token/',
+            { username: email, password: password }
+        );
+        
+        const token = response.data.access;
+        setCookie(undefined, '@app:token', token); 
+        
         return response.data;
     }
 
     // ROTA: POST /api/register/
     async register(data: UserRegistrationRequest): Promise<UserProfile> {
-        const response = await api.post<UserProfile>('/api/register/', data);
+        const response: AxiosResponse<UserProfile> = await api.post('/api/register/', data);
         return response.data;
     }
 
+
     // =========================================================
-    // 2. OPERAÇÕES DE PERFIL (CRUD)
+    // 2. OPERAÇÕES DE PERFIL (CRUD RESTful)
     // =========================================================
 
-    // ROTA CUSTOMIZADA IDEAL: GET /api/profiles/me/
-    // Se o backend não tiver a rota 'me/', esta função simula a busca do perfil logado.
-    // NOTA: Para um sistema real, você buscará o ID do usuário (user_id) a partir do token
-    // e fará um GET para /api/profiles/{user_id}/.
+    // ROTA: GET /api/profiles/{userId}/ - MÉTODO DE INSTÂNCIA
     async getProfile(userId: string): Promise<UserProfile> {
-        // O DRF usa o ID do UserProfile para a rota de detalhe
-        const response = await api.get<UserProfile>(`${this.basePath}${userId}/`);
+        const response: AxiosResponse<UserProfile> = await api.get(
+            `${this.basePath}${userId}/`
+        );
         return response.data;
     }
-
-    // ROTA: PATCH /api/profiles/{id}/
+    
+    // ROTA: PATCH /api/profiles/{userId}/ - MÉTODO DE INSTÂNCIA
     async updateProfile(userId: string, data: UserUpdateData): Promise<UserProfile> {
-        // Envia apenas os campos mutáveis
-        const response = await api.patch<UserProfile>(`${this.basePath}${userId}/`, data);
+        const response: AxiosResponse<UserProfile> = await api.patch(
+            `${this.basePath}${userId}/`,
+            data
+        );
         return response.data;
     }
 }
+
+// Criamos e exportamos a instância única do serviço (o objeto real)
+const UserService = new UserServiceClass();
+export default UserService;

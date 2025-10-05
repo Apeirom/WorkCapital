@@ -4,7 +4,7 @@ import api from './api';
 import { Project, ProjectCreateData } from '../interfaces/Project'; 
 
 export default class ProjectService {
-    private basePath = '/api/projects/';
+    private basePath = 'projects/';
 
     /**
      * ROTA: GET /api/projects/

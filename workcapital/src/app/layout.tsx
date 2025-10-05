@@ -1,7 +1,11 @@
 // src/app/layout.tsx
+
 import './globals.css';
 import StyledComponentsRegistry from '@/components/providers/StyledComponentsRegistry';
 import '@ant-design/v5-patch-for-react-19'; 
+
+// Adicione a importação do seu AuthProvider
+import { AuthProvider } from '@/hooks/AuthContext'; 
 
 export default function RootLayout({
   children,
@@ -19,9 +23,15 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.jpg" type="image/jpeg" />
       </head>
       <body>
-        <StyledComponentsRegistry>
-          {children}
-        </StyledComponentsRegistry>
+        {/*
+          CRUCIAL: O AuthProvider deve envolver toda a aplicação.
+          Ele é o provedor do contexto que o hook useAuthContext consome.
+        */}
+        <AuthProvider>
+          <StyledComponentsRegistry>
+            {children}
+          </StyledComponentsRegistry>
+        </AuthProvider>
       </body>
     </html>
   );
