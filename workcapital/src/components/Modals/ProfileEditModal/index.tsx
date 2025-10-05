@@ -58,7 +58,7 @@ const ProfileEditModal: React.FC<ProfileEditModalProps> = ({ open, onClose, onSa
             onCancel={onClose}
             footer={null} 
             width={850}
-            destroyOnClose={true} // Força a remontagem para garantir que o useEffect de seleção rode
+            destroyOnHidden={true} // Força a remontagem para garantir que o useEffect de seleção rode
         >
             <Form
                 form={form}
