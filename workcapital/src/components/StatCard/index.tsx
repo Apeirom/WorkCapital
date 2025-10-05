@@ -13,6 +13,7 @@ interface StatCardProps {
 }
 
 // Mapeamento dos nomes de ícones (strings) para os componentes React
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const IconMap: { [key: string]: React.FC<any> } = {
     FileTextOutlined,
     ToolOutlined,

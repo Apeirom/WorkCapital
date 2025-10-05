@@ -1,13 +1,17 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { Typography, Button, Alert, Tabs, Modal } from 'antd'; // Modal agora só é usado para o Modal.success
+import { Typography, Button, Alert, Tabs, Modal } from 'antd'; 
 import { PlusCircleOutlined } from '@ant-design/icons';
 import Navbar from "@/components/NavBar";
 import DebtCard from '@/components/DebtCard';
 import CreditProposalCard from '@/components/CreditProposalCard';
 import CreditRequestModal from '@/components/Modals/CreditRequestModal';
-import { mockDebts, mockCreditProposals, CreditProposal } from '@/interfaces/CreditTaker'; 
+
+// IMPORTAÇÃO DE TIPOS: Apenas as interfaces
+import { CreditProposal } from '@/interfaces/CreditTaker'; 
+// IMPORTAÇÃO DE DADOS: Importa os dados do novo arquivo de mocks
+import { mockDebts, mockCreditProposals } from './creditMockData'
 
 import * as S from './styles';
 
@@ -29,20 +33,20 @@ const CreditPage: React.FC = () => {
     // Funções de controle do Modal
     const handleSuccess = () => {
         // Esta função é chamada PELO MODAL após o envio bem-sucedido.
-        // Aqui você faria a lógica de recarregar a lista de propostas.
         Modal.success({
             title: 'Solicitação Enviada!',
             content: 'Sua solicitação de crédito foi enviada para avaliação e será visível aos investidores em breve.',
         });
-        // O estado mockado não precisa ser atualizado, mas em produção, a lista seria recarregada.
+        // Lógica de recarregar a lista de propostas viria aqui
     };
 
 
-    // Lógica de Filtragem de Propostas pelo status da aba (Mantida)
+    // Lógica de Filtragem de Propostas pelo status da aba (usando mockCreditProposals)
     const filteredProposals = useMemo(() => {
         const requiredStatuses = tabKeyToStatusMap[activeTab];
         if (!requiredStatuses) return [];
 
+        // O erro foi resolvido: mockCreditProposals é um array válido
         return mockCreditProposals.filter(proposal => requiredStatuses.includes(proposal.status));
     }, [activeTab]);
 

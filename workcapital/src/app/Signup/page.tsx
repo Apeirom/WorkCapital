@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Typography, Input, Select, Button, Avatar, Form, message } from "antd";
-import { UserOutlined, MailOutlined, LockOutlined, UploadOutlined, ArrowLeftOutlined } from "@ant-design/icons"; // SINTAXE CORRETA
+import { UserOutlined, MailOutlined, LockOutlined, UploadOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -16,7 +16,6 @@ const { Title } = Typography;
 const { Option } = Select;
 
 // Mapeia os campos do formulário para o payload da API
-// Removendo 'name' daqui, pois ele não é um campo da API (usaremos para UX)
 interface SignupFormValues {
     email: string;
     password: string;
@@ -43,23 +42,25 @@ const SignupPage: React.FC = () => {
                 cpf: values.cpf,
                 // Mapeia 'phone'
                 phone: values.phone || '', 
-                gender: values.gender || 'Não Informado',
+                // Garante que o gender não seja undefined se for 'Não Informado'
+                gender: values.gender || 'Não Informado', 
                 city: values.city || '',
                 state: values.state || '',
             };
             
-            // 2. Chama a API de Registro
-            // O backend retorna o UserProfile (e o Contractor)
+            // 2. Chama a API de Registro (Substitui a simulação)
             await UserService.register(payload);
 
-            // 3. Sucesso e Redirecionamento
-            message.success("Cadastro realizado com sucesso! Faça login para continuar.");
+            // 3. Sucesso: Mensagem e Redirecionamento
+            message.success("Cadastro realizado com sucesso! Você já pode fazer login.");
             router.push("/Login"); 
 
         } catch (error) {
             console.error("Erro ao registrar:", error);
-            // Melhor tratamento de erro: assume que 400 é falha de validação/unique
-            message.error("Falha no cadastro. Verifique se o e-mail ou CPF já está em uso.");
+            
+            // 4. Tratamento de Erros: Mostra a mensagem de falha
+            // O Django devolve 400 Bad Request se email/cpf for duplicado
+            message.error("Falha no cadastro. Verifique se o e-mail ou CPF já está em uso, ou se os dados estão incorretos.");
 
         } finally {
             setIsLoading(false);

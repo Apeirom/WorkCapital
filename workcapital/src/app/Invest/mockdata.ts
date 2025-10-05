@@ -1,4 +1,4 @@
-import { InvestmentProposal, ProposalStatus } from '@/types/Investment';
+import { InvestmentProposal, ProposalStatus } from '@/interfaces/Investment';
 
 // Função utilitária para mapear as chaves das abas para o Status da Proposta
 export const tabKeyToStatusMap: Record<string, ProposalStatus> = {

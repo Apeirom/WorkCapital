@@ -44,7 +44,7 @@ class UserServiceClass {
 
     // ROTA: POST /api/register/
     async register(data: UserRegistrationRequest): Promise<UserProfile> {
-        const response: AxiosResponse<UserProfile> = await api.post('/api/register/', data);
+        const response: AxiosResponse<UserProfile> = await api.post('register/', data);
         return response.data;
     }
 

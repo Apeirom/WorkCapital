@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const PAGE_BACKGROUND_COLOR = '#f7f9fc';
-const ACTIVE_COLOR = '#0046A1';
 
 export const SignupContainer = styled.div`
     min-height: 100vh;
