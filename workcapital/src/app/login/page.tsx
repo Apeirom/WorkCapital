@@ -25,7 +25,7 @@ const LoginPage: React.FC = () => {
   };
 
   const handleRegister = () => {
-    router.push("/register"); // pode apontar para a página de cadastro
+    router.push("/Signup");
   };
 
   return (
