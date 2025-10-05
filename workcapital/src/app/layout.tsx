@@ -10,6 +10,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR">
+      <head>
+        {/*
+          ADICIONADO: Tag para referenciar o favicon.
+          O caminho '/' aponta para a raiz da pasta /app.
+          Certifique-se de que o arquivo 'favicon.jpg' está em src/app/
+        */}
+        <link rel="icon" href="/favicon.jpg" type="image/jpeg" />
+      </head>
       <body>
         <StyledComponentsRegistry>
           {children}
